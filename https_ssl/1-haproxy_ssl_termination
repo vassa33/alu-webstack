@@ -41,8 +41,8 @@ frontend firstbalance
 frontend https
     bind *:443 ssl crt /etc/haproxy/vanessacodes.tech.pem
     http-request set-header X-Forwarded-Proto https
-    acl encrypt-acl path_beg /.well-known/acme-challenge/
-    use_backend encrypt-backend if encrypt-acl
+    acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+    use_backend letsencrypt-backend if letsencrypt-acl
     default_backend webservers
 
 backend webservers
@@ -51,5 +51,5 @@ backend webservers
     server 4822-web-01 54.147.38.239:80 check
     server 4822-web-02 3.208.24.41:80 check
     
-backend encrypt-backend
-   server encrypt 127.0.0.1:54321
+backend letsencrypt-backend
+   server letsencrypt 127.0.0.1:54321
