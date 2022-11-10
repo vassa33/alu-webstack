@@ -42,7 +42,7 @@ frontend https
     bind *:443 ssl crt /etc/haproxy/vanessacodes.tech.pem
     http-request set-header X-Forwarded-Proto https
     acl encrypt-acl path_beg /.well-known/acme-challenge/
-    use_backend encrypt-backend if letsencrypt-acl
+    use_backend encrypt-backend if encrypt-acl
     default_backend webservers
 
 backend webservers
